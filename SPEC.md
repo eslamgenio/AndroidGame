@@ -1,6 +1,6 @@
 # Spec: Patch Notes
 
-> Status: **DRAFT, awaiting approval** · Milestone 1 (vertical slice)
+> Status: **APPROVED** · Milestone 1 (vertical slice)
 
 ## Objective
 
@@ -87,7 +87,7 @@ level's data file, not code.)
 
 | Concern | Choice | Why |
 |---|---|---|
-| Language | TypeScript 7.0.x (strict) | Types catch rule/level mistakes before runtime |
+| Language | TypeScript 6.0.3 (strict) | Types catch rule/level mistakes before runtime. Not 7.x: typescript-eslint 8 supports only TS < 6.1 |
 | Build/dev server | Vite 8.3.x | Fast dev server, simple static build |
 | Unit tests | Vitest 5.0.x | Native TS + Vite; runs the core in Node |
 | E2E tests | Playwright 1.56.1 (pre-installed Chromium) | Real-browser smoke tests in this container |
@@ -215,14 +215,11 @@ export function applyPatch(rules: RuleSet, patch: Patch): RuleSet {
 Saved progress, scoring/stars, sound, a level editor, a native APK
 (possible later via Capacitor), hosting/CI, more than 5 levels.
 
-## Open Questions
+## Resolved Decisions
 
-1. **Cheesing:** a wrong patch might accidentally make a level beatable another
-   way (e.g. turning walls non-solid lets you skip the puzzle). Should that
-   **count as a win** (Baba-style creativity), or should a level only count if
-   the final rules match the "correct" fix? *My recommendation:* it counts, but
-   the end screen says **"Shipped with known issues ⚠"** instead of
-   **"Verified fix ✓"**. That way creativity is rewarded and the right answer is still recognized.
-2. **Hosting:** do you want this deployed somewhere (e.g. GitHub Pages) so you
-   can open it on your phone, or is running it locally enough for now? (That
-   would be a separate, later task, since it's under "Ask first".)
+1. **Cheesing counts as a win.** If a wrong patch lets you reach the exit
+   another way, the level is completed, but the end screen says **"Shipped
+   with known issues ⚠"**. It says **"Verified fix ✓"** only when every faulty
+   rule has its correct value. Level 5 has two faulty rules.
+2. **Hosting is deferred.** Milestone 1 runs locally (`npm run dev` / `npm run
+   preview`). Deploying, for example to GitHub Pages, is a later task.
