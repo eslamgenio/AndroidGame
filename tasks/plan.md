@@ -54,16 +54,16 @@ T1 scaffold
 ## Task List (summary; details in `tasks/todo.md`)
 
 ### Phase 1: Foundation
-- [ ] T1 Project scaffold and quality gates
-- [ ] T2 Rule engine (registry, RuleSet, applyPatch, patch history)
-- [ ] T3 Level format, loader and validator, plus level 1 data
+- [x] T1 Project scaffold and quality gates
+- [x] T2 Rule engine (registry, RuleSet, applyPatch, patch history)
+- [x] T3 Level format, loader and validator, plus level 1 data
 
 ### Checkpoint A: core builds, lint boundary enforced, tests green
 
 ### Phase 2: Walking skeleton
-- [ ] T4 Physics: tile collision, gravity vector, movement, jump
-- [ ] T5 Simulation step, hazards/respawn/win, replay runner, level 1 replay test
-- [ ] T6 Browser app: fixed-timestep loop, keyboard, Canvas renderer (level 1 playable)
+- [x] T4 Physics: tile collision, gravity vector, movement, jump
+- [x] T5 Simulation step, hazards/respawn/win, replay runner, level 1 replay test
+- [x] T6 Browser app: fixed-timestep loop, keyboard, Canvas renderer (level 1 playable)
 
 ### Checkpoint B: level 1 playable on desktop; its replay test proves bug blocks / fix passes → **review with you**
 

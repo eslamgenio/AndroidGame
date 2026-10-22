@@ -1,7 +1,18 @@
 :root {
   color-scheme: dark;
   --bg: #0d1117;
+  --panel: #161b22;
+  --border: #30363d;
   --fg: #c9d1d9;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --ok: #3fb950;
+  --warn: #d29922;
+  --bad: #f85149;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -9,4 +20,41 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+#app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 12px 16px;
+}
+
+.ticket h1 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.ticket-id {
+  margin: 0;
+  color: var(--bad);
+  font-weight: bold;
+}
+
+.ticket-report {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.screen {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  image-rendering: pixelated;
+}
+
+.status {
+  min-height: 1.4em;
+  font-weight: bold;
+  color: var(--ok);
 }
