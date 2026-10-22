@@ -213,7 +213,8 @@ export function applyPatch(rules: RuleSet, patch: Patch): RuleSet {
 ## Out of scope (Milestone 1)
 
 Saved progress, scoring/stars, sound, a level editor, a native APK
-(possible later via Capacitor), hosting/CI, more than 5 levels.
+(possible later via Capacitor), more than 5 levels. (Hosting was added after
+Milestone 1; see Resolved Decisions.)
 
 ## Resolved Decisions
 
@@ -221,5 +222,7 @@ Saved progress, scoring/stars, sound, a level editor, a native APK
    another way, the level is completed, but the end screen says **"Shipped
    with known issues ⚠"**. It says **"Verified fix ✓"** only when every faulty
    rule has its correct value. Level 5 has two faulty rules.
-2. **Hosting is deferred.** Milestone 1 runs locally (`npm run dev` / `npm run
-   preview`). Deploying, for example to GitHub Pages, is a later task.
+2. **Hosting: GitHub Pages.** `.github/workflows/deploy.yml` builds, runs
+   `npm run check`, and publishes on every push to the default branch. The
+   repository is public, because GitHub Free offers Pages for public
+   repositories only.

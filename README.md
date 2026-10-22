@@ -12,6 +12,12 @@ Fix the real bug for **"Verified fix ✓"**.
 
 ## Play
 
+**Online:** https://eslamgenio.github.io/AndroidGame/ (on Android, open it in
+Chrome and choose *Install app* or *Add to Home screen*; it works offline after
+the first visit).
+
+**Locally:**
+
 ```
 npm ci
 npm run dev        # http://localhost:5173
@@ -22,9 +28,12 @@ npm run dev        # http://localhost:5173
 | Run | ← → or A D | ◀ ▶ |
 | Jump | Space, ↑ or W | ▲ |
 
-To install it on Android, serve the production build over HTTPS (`npm run build`,
-then host `dist/`) and choose *Install app* from Chrome's menu. After the first
-visit it works offline.
+## Deploy
+
+`.github/workflows/deploy.yml` publishes to GitHub Pages on every push to the
+default branch (or by hand from the Actions tab). It runs `npm run check` first,
+so nothing broken goes live. One-time setup: **Settings → Pages → Source:
+GitHub Actions**. The build uses relative paths, so it works from any folder.
 
 ## Commands
 
