@@ -80,10 +80,10 @@ Every task also meets `.claude/references/definition-of-done.md`.
 ---
 
 ## Phase 3: Bug-report loop
-- [ ] **T7 Rule inspector**: live rules panel, with patched rules shown as a diff. *AC:* values update the same tick a patch lands. (S–M; deps T6)
-- [ ] **T8 Bug-report form**: pick a rule, then a value from its options, then submit; `GameController.applyPatch`; glitch effect. *AC:* a correct report on level 1 rewires gravity live without a position reset; a wrong one really ships. (M; deps T7)
-- [ ] **T9 Patch log + restart**: revert any patch; restart resets the player and the rules. (S; deps T8)
-- [ ] **T10 E2E smoke**: load → inspector → file report → level rewires → revert. (S; deps T9)
+- [x] **T7 Rule inspector**: live rules panel, with patched rules shown as a diff. *AC:* values update the same tick a patch lands. (S–M; deps T6)
+- [x] **T8 Bug-report form**: pick a rule, then a value from its options, then submit; `GameController.applyPatch`; glitch effect. *AC:* a correct report on level 1 rewires gravity live without a position reset; a wrong one really ships. (M; deps T7)
+- [x] **T9 Patch log + restart**: revert any patch; restart resets the player and the rules. (S; deps T8)
+- [x] **T10 E2E smoke**: load → inspector → file report → level rewires → revert. (S; deps T9)
 
 ### ✅ Checkpoint C: the full loop works in a real browser → **review with user**
 

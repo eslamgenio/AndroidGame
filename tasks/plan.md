@@ -68,10 +68,10 @@ T1 scaffold
 ### Checkpoint B: level 1 playable on desktop; its replay test proves bug blocks / fix passes → **review with you**
 
 ### Phase 3: Bug-report loop
-- [ ] T7 Rule inspector panel with live values and diff highlighting
-- [ ] T8 Bug-report form that applies patches live, with the glitch effect
-- [ ] T9 Patch log with revert, and restart level
-- [ ] T10 Playwright e2e smoke tests
+- [x] T7 Rule inspector panel with live values and diff highlighting
+- [x] T8 Bug-report form that applies patches live, with the glitch effect
+- [x] T9 Patch log with revert, and restart level
+- [x] T10 Playwright e2e smoke tests
 
 ### Checkpoint C: full report → rewire → revert loop works in a real browser → **review with you**
 

@@ -25,9 +25,184 @@ body {
 }
 
 #app {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 12px 16px;
+}
+
+.layout {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+  }
+}
+
+.panel {
+  display: grid;
+  gap: 12px;
+}
+
+.panel > * {
+  margin: 0;
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.help {
+  margin: 4px 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Rule inspector */
+.rules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rule {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.rule-value {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.rule.patched {
+  background: rgba(210, 153, 34, 0.12);
+}
+
+.rule del {
+  color: var(--bad);
+}
+
+.rule ins {
+  color: var(--ok);
+  text-decoration: none;
+}
+
+/* Bug-report form */
+.report label[for='report-rule'] {
+  display: block;
+  margin-bottom: 4px;
+}
+
+select,
+button {
+  font: inherit;
+  color: var(--fg);
+  min-height: 44px;
+}
+
+select {
+  width: 100%;
+  padding: 0 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.values {
+  margin: 0 0 12px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+}
+
+.choice:has(input:disabled) {
+  color: var(--muted);
+}
+
+button {
+  width: 100%;
+  padding: 0 12px;
+  background: #238636;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #21262d;
+  border-color: var(--border);
+}
+
+button.link {
+  width: auto;
+  min-height: 32px;
+  background: none;
+  border: none;
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Patch log */
+.patch-list {
+  margin: 0 0 12px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.patch-list li {
+  padding: 2px 0;
+}
+
+.patch-version {
+  color: var(--warn);
+}
+
+/* Shown whenever the rules change: the level "rewires itself". */
+.glitch {
+  animation: glitch 400ms steps(2) 1;
+}
+
+@keyframes glitch {
+  0% { filter: hue-rotate(90deg) saturate(3); transform: translateX(-3px); }
+  25% { filter: invert(1); transform: translateX(3px) skewX(-4deg); }
+  50% { filter: hue-rotate(-90deg); transform: translateY(2px); }
+  75% { filter: contrast(2); transform: translateX(-2px); }
+  100% { filter: none; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch {
+    animation: none;
+  }
 }
 
 .ticket h1 {
