@@ -1,0 +1,4 @@
+
+# agent-skills hook caches
+.claude/sdd-cache/
+.claude/.simplify-ignore-cache/
