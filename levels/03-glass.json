@@ -1,0 +1,50 @@
+{
+  "id": "03-glass",
+  "ticket": "BUG-003",
+  "title": "Glass bridge has no collision",
+  "report": "Steps: walk onto the glass bridge. Expected: the bridge holds the player. Actual: the player falls straight through onto the spikes.",
+  "tiles": [
+    "####################",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#.P..............E.#",
+    "#####GGGGGGGG#######",
+    "#####........#######",
+    "#####^^^^^^^^#######",
+    "####################"
+  ],
+  "inspect": [
+    "tile.glass.solid",
+    "tile.glass.visible",
+    "hazard.spikes.lethal",
+    "player.speed"
+  ],
+  "rules": {
+    "tile.glass.solid": false
+  },
+  "fixes": {
+    "tile.glass.solid": true
+  },
+  "solution": {
+    "patches": [
+      {
+        "ruleId": "tile.glass.solid",
+        "value": true
+      }
+    ],
+    "inputs": [
+      {
+        "hold": [
+          "right"
+        ],
+        "ticks": 400
+      }
+    ]
+  }
+}

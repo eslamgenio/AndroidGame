@@ -1,0 +1,400 @@
+:root {
+  color-scheme: dark;
+  --bg: #0d1117;
+  --panel: #161b22;
+  --border: #30363d;
+  --fg: #c9d1d9;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --ok: #3fb950;
+  --warn: #d29922;
+  --bad: #f85149;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+#app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 16px;
+}
+
+/* Ticket bar (level select) */
+.tickets {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  margin-bottom: 12px;
+}
+
+.tickets .ticket-tab {
+  width: auto;
+  flex: none;
+  min-height: 36px;
+  padding: 0 10px;
+  background: var(--panel);
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+.ticket-tab[aria-current='page'] {
+  color: var(--fg);
+  border-color: var(--accent);
+}
+
+.ticket-tab.verified {
+  color: var(--ok);
+}
+
+.ticket-tab.known-issues {
+  color: var(--warn);
+}
+
+.layout {
+  display: grid;
+  gap: 12px;
+  grid-template-areas: 'ticket' 'stage' 'panel';
+}
+
+.ticket {
+  grid-area: ticket;
+}
+
+.stage-wrap {
+  grid-area: stage;
+}
+
+.panel {
+  grid-area: panel;
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-areas: 'ticket panel' 'stage panel';
+    grid-template-rows: auto 1fr;
+    align-items: start;
+  }
+}
+
+/* On narrow screens the game stays pinned on top while the panel scrolls under it. */
+@media (max-width: 899px) {
+  .stage-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 8px 0 4px;
+    background: var(--bg);
+  }
+
+  .ticket-report {
+    font-size: 12px;
+  }
+}
+
+.stage {
+  position: relative;
+}
+
+/* End-of-level card */
+.result {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(90%, 360px);
+  max-height: 100%;
+  overflow: auto;
+  padding: 12px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.result[hidden] {
+  display: none;
+}
+
+/* Phones: the screen is too short to cover, so the card sits below it. */
+@media (max-width: 899px) {
+  .result {
+    position: static;
+    transform: none;
+    width: auto;
+    max-height: none;
+    margin-top: 8px;
+  }
+}
+
+.result h2 {
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.result p,
+.result ul {
+  margin: 0 0 8px;
+}
+
+.result .ok {
+  color: var(--ok);
+}
+
+.result .warn {
+  color: var(--warn);
+}
+
+.result .actions {
+  display: grid;
+  gap: 8px;
+}
+
+/* Touch controls: only on touch screens */
+.touch {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .touch {
+    display: grid;
+    grid-template-columns: 64px 64px 1fr 72px;
+    grid-template-areas: 'left right . jump';
+    gap: 8px;
+    margin-top: 8px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+.touch button {
+  min-height: 56px;
+  background: #21262d;
+  border-color: var(--border);
+  font-size: 20px;
+  touch-action: none;
+}
+
+.touch button.held {
+  background: var(--border);
+  border-color: var(--accent);
+}
+
+.touch-left {
+  grid-area: left;
+}
+
+.touch-right {
+  grid-area: right;
+}
+
+.touch-jump {
+  grid-area: jump;
+}
+
+.panel {
+  display: grid;
+  gap: 12px;
+}
+
+.panel > * {
+  margin: 0;
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.help {
+  margin: 4px 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Rule inspector */
+.rules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rule {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.rule-value {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.rule.patched {
+  background: rgba(210, 153, 34, 0.12);
+}
+
+.rule del {
+  color: var(--bad);
+}
+
+.rule ins {
+  color: var(--ok);
+  text-decoration: none;
+}
+
+/* Bug-report form */
+.report label[for='report-rule'] {
+  display: block;
+  margin-bottom: 4px;
+}
+
+select,
+button {
+  font: inherit;
+  color: var(--fg);
+  min-height: 44px;
+}
+
+select {
+  width: 100%;
+  padding: 0 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.values {
+  margin: 0 0 12px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+}
+
+.choice:has(input:disabled) {
+  color: var(--muted);
+}
+
+button {
+  width: 100%;
+  padding: 0 12px;
+  background: #238636;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #21262d;
+  border-color: var(--border);
+}
+
+button.link {
+  width: auto;
+  min-height: 32px;
+  background: none;
+  border: none;
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Patch log */
+.patch-list {
+  margin: 0 0 12px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.patch-list li {
+  padding: 2px 0;
+}
+
+.patch-version {
+  color: var(--warn);
+}
+
+/* Shown whenever the rules change: the level "rewires itself". */
+.glitch {
+  animation: glitch 400ms steps(2) 1;
+}
+
+@keyframes glitch {
+  0% { filter: hue-rotate(90deg) saturate(3); transform: translateX(-3px); }
+  25% { filter: invert(1); transform: translateX(3px) skewX(-4deg); }
+  50% { filter: hue-rotate(-90deg); transform: translateY(2px); }
+  75% { filter: contrast(2); transform: translateX(-2px); }
+  100% { filter: none; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch {
+    animation: none;
+  }
+}
+
+.ticket h1 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.ticket-id {
+  margin: 0;
+  color: var(--bad);
+  font-weight: bold;
+}
+
+.ticket-report {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.screen {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  image-rendering: pixelated;
+}
+
+.status {
+  min-height: 1.4em;
+  font-weight: bold;
+  color: var(--ok);
+}
+
+.status[data-outcome='known-issues'] {
+  color: var(--warn);
+}

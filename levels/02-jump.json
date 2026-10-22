@@ -1,0 +1,60 @@
+{
+  "id": "02-jump",
+  "ticket": "BUG-002",
+  "title": "Jump button does nothing",
+  "report": "Steps: press jump. Expected: the player jumps. Actual: nothing happens, so the ledge to the exit cannot be climbed.",
+  "tiles": [
+    "####################",
+    "#^^^^^^^^^^^^^^^^^^#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#...............E..#",
+    "#.........##########",
+    "#.P.......##########",
+    "####################"
+  ],
+  "inspect": [
+    "player.jumpPower",
+    "player.speed",
+    "gravity.direction",
+    "gravity.strength"
+  ],
+  "rules": {
+    "player.jumpPower": 0
+  },
+  "fixes": {
+    "player.jumpPower": 1
+  },
+  "solution": {
+    "patches": [
+      {
+        "ruleId": "player.jumpPower",
+        "value": 1
+      }
+    ],
+    "inputs": [
+      {
+        "hold": [
+          "right"
+        ],
+        "ticks": 76
+      },
+      {
+        "hold": [
+          "right",
+          "jump"
+        ],
+        "ticks": 1
+      },
+      {
+        "hold": [
+          "right"
+        ],
+        "ticks": 300
+      }
+    ]
+  }
+}

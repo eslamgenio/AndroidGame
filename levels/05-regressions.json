@@ -1,0 +1,80 @@
+{
+  "id": "05-regressions",
+  "ticket": "BUG-005",
+  "title": "Two regressions",
+  "report": "Steps: start the level. Expected: the player stands on the floor and the exit is open. Actual: the player is pulled into the left wall, and the exit is locked although the level has no key.",
+  "tiles": [
+    "####################",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..............E...#",
+    "#...........########",
+    "#.......############",
+    "#.P.....############",
+    "####################"
+  ],
+  "inspect": [
+    "gravity.direction",
+    "exit.requires",
+    "player.scale",
+    "hazard.spikes.lethal",
+    "tile.glass.solid"
+  ],
+  "rules": {
+    "gravity.direction": "LEFT",
+    "exit.requires": "KEY"
+  },
+  "fixes": {
+    "gravity.direction": "DOWN",
+    "exit.requires": "NONE"
+  },
+  "solution": {
+    "patches": [
+      {
+        "ruleId": "gravity.direction",
+        "value": "DOWN"
+      },
+      {
+        "ruleId": "exit.requires",
+        "value": "NONE"
+      }
+    ],
+    "inputs": [
+      {
+        "hold": [
+          "right"
+        ],
+        "ticks": 18
+      },
+      {
+        "hold": [
+          "right",
+          "jump"
+        ],
+        "ticks": 1
+      },
+      {
+        "hold": [
+          "right"
+        ],
+        "ticks": 53
+      },
+      {
+        "hold": [
+          "right",
+          "jump"
+        ],
+        "ticks": 1
+      },
+      {
+        "hold": [
+          "right"
+        ],
+        "ticks": 300
+      }
+    ]
+  }
+}

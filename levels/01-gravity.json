@@ -1,0 +1,32 @@
+{
+  "id": "01-gravity",
+  "ticket": "BUG-001",
+  "title": "Player falls up",
+  "report": "Steps: start the level. Expected: the player stands on the floor. Actual: the player falls onto the ceiling and cannot reach the exit.",
+  "tiles": [
+    "####################",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#..................#",
+    "#.P......##.....E..#",
+    "#############^^#####"
+  ],
+  "inspect": ["gravity.direction", "gravity.strength", "player.speed", "player.jumpPower"],
+  "rules": { "gravity.direction": "UP" },
+  "fixes": { "gravity.direction": "DOWN" },
+  "solution": {
+    "patches": [{ "ruleId": "gravity.direction", "value": "DOWN" }],
+    "inputs": [
+      { "hold": ["right"], "ticks": 42 },
+      { "hold": ["right", "jump"], "ticks": 1 },
+      { "hold": ["right"], "ticks": 36 },
+      { "hold": ["right", "jump"], "ticks": 1 },
+      { "hold": ["right"], "ticks": 120 }
+    ]
+  }
+}
