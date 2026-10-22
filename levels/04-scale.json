@@ -1,0 +1,47 @@
+{
+  "id": "04-scale",
+  "ticket": "BUG-004",
+  "title": "Player too big for the tunnel",
+  "report": "Steps: walk into the tunnel. Expected: the player fits through. Actual: the player is twice the normal size and gets stuck at the entrance.",
+  "tiles": [
+    "####################",
+    "#.........##########",
+    "#.........##########",
+    "#.........##########",
+    "#.........##########",
+    "#.........##########",
+    "#.........##########",
+    "#.........##########",
+    "#.........##########",
+    "#.P..............E.#",
+    "####################"
+  ],
+  "inspect": [
+    "player.scale",
+    "player.speed",
+    "player.jumpPower",
+    "gravity.strength"
+  ],
+  "rules": {
+    "player.scale": 2
+  },
+  "fixes": {
+    "player.scale": 1
+  },
+  "solution": {
+    "patches": [
+      {
+        "ruleId": "player.scale",
+        "value": 1
+      }
+    ],
+    "inputs": [
+      {
+        "hold": [
+          "right"
+        ],
+        "ticks": 400
+      }
+    ]
+  }
+}

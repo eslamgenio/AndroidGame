@@ -83,7 +83,8 @@ export class Renderer {
             if (glassVisible) box(ctx, x, y, TILE, TILE, COLORS.glass, COLORS.glassEdge, rules.get('tile.glass.solid') ? [] : [2, 2]);
             break;
           case 'spikes':
-            spikes(ctx, x, y);
+            // Point into the open side: up from floors, down from ceilings.
+            spikes(ctx, x, y, level.tileAt(col, row - 1) !== 'empty' && level.tileAt(col, row + 1) === 'empty');
             break;
           case 'empty':
             break;
@@ -147,14 +148,16 @@ function box(
   ctx.setLineDash([]);
 }
 
-function spikes(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+function spikes(ctx: CanvasRenderingContext2D, x: number, y: number, pointDown: boolean): void {
+  const base = pointDown ? y : y + TILE;
+  const tip = pointDown ? y + (TILE * 2) / 3 : y + TILE / 3;
   ctx.fillStyle = COLORS.spikes;
   ctx.beginPath();
   for (let i = 0; i < 4; i++) {
     const left = x + i * (TILE / 4);
-    ctx.moveTo(left, y + TILE);
-    ctx.lineTo(left + TILE / 8, y + TILE / 3);
-    ctx.lineTo(left + TILE / 4, y + TILE);
+    ctx.moveTo(left, base);
+    ctx.lineTo(left + TILE / 8, tip);
+    ctx.lineTo(left + TILE / 4, base);
   }
   ctx.fill();
 }
