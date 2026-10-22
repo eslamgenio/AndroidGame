@@ -42,7 +42,7 @@ export function gravityDirection(rules: RuleSet): Vec {
 }
 
 export function isSolid(tile: Tile, rules: RuleSet): boolean {
-  if (tile === 'wall') return true;
+  if (tile === 'wall' || tile === 'spikes') return true;
   if (tile === 'glass') return rules.get('tile.glass.solid');
   return false;
 }
