@@ -14,8 +14,13 @@ export default tseslint.config(
     languageOptions: { globals: globals.browser },
   },
   {
-    files: ['tests/**/*.ts', 'e2e/**/*.ts', '*.config.{js,ts}'],
+    files: ['tests/**/*.ts', 'e2e/**/*.ts', 'build/**/*.ts', 'scripts/**/*.mjs', '*.config.{js,ts}'],
     languageOptions: { globals: globals.node },
+  },
+  {
+    files: ['src/sw/**/*.js'],
+    // __VERSION__ and __PRECACHE__ are filled in by build/serviceWorker.ts.
+    languageOptions: { globals: { ...globals.serviceworker, __PRECACHE__: 'readonly' } },
   },
   {
     // The core must stay deterministic and runnable in Node: no DOM, no

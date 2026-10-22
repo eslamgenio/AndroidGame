@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Full-bleed background so the same art works as a maskable icon;
+       the bug stays inside the central safe zone. -->
+  <rect width="512" height="512" fill="#0d1117"/>
+  <g fill="none" stroke="#58a6ff" stroke-width="14" stroke-linecap="round">
+    <!-- legs -->
+    <path d="M196 236 L148 212 M196 276 L140 276 M196 316 L148 340"/>
+    <path d="M316 236 L364 212 M316 276 L372 276 M316 316 L364 340"/>
+    <!-- antennae -->
+    <path d="M236 170 L212 132 M276 170 L300 132"/>
+    <!-- head and body -->
+    <circle cx="256" cy="186" r="30" fill="#161b22"/>
+    <ellipse cx="256" cy="282" rx="64" ry="84" fill="#161b22"/>
+    <path d="M256 214 L256 360" stroke-width="8"/>
+  </g>
+  <!-- the patch -->
+  <g transform="rotate(-35 256 282)">
+    <rect x="166" y="258" width="180" height="48" rx="12" fill="#d29922"/>
+    <g fill="#0d1117">
+      <circle cx="236" cy="272" r="5"/><circle cx="256" cy="272" r="5"/><circle cx="276" cy="272" r="5"/>
+      <circle cx="236" cy="292" r="5"/><circle cx="256" cy="292" r="5"/><circle cx="276" cy="292" r="5"/>
+    </g>
+  </g>
+</svg>

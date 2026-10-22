@@ -11,6 +11,7 @@ import { Game } from './game';
 import { Input } from './input';
 import { LEVELS } from './levels';
 import { startLoop } from './loop';
+import { registerServiceWorker } from './registerServiceWorker';
 
 declare global {
   interface Window {
@@ -134,3 +135,4 @@ function glitch(canvas: HTMLCanvasElement): void {
 
 const root = document.getElementById('app');
 if (root) start(root);
+registerServiceWorker();

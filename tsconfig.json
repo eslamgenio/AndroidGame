@@ -16,5 +16,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["src", "tests", "levels", "e2e", "*.ts"]
+  "include": ["src", "tests", "levels", "e2e", "build", "*.ts"]
 }
