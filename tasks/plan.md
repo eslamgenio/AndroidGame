@@ -76,10 +76,10 @@ T1 scaffold
 ### Checkpoint C: full report → rewire → revert loop works in a real browser → **review with you**
 
 ### Phase 4: Content and mobile
-- [ ] T11 Touch controls and responsive layout (360×640)
-- [ ] T12 Levels 2 and 3 (jumpPower, glass solid/visible) with replay tests
-- [ ] T13 Levels 4 and 5 (player.scale; sideways gravity + exit.requires) with replay tests
-- [ ] T14 Level select and end screens (Verified ✓ / Known issues ⚠)
+- [x] T11 Touch controls and responsive layout (360×640)
+- [x] T12 Levels 2 and 3 (jumpPower, glass solid/visible) with replay tests
+- [x] T13 Levels 4 and 5 (player.scale; sideways gravity + exit.requires) with replay tests
+- [x] T14 Level select and end screens (Verified ✓ / Known issues ⚠)
 
 ### Checkpoint D: all 5 levels pass replay tests, playable on a phone-sized viewport
 

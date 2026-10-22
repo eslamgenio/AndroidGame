@@ -42,14 +42,14 @@ suspicious but are correct, so the puzzle is reasoning, not just "find the odd v
 
 | # | Title (ticket) | Visible symptom | Faulty rule → fix | Example "wrong patch ships" |
 |---|---|---|---|---|
-| 1 | *BUG-001: Player falls up* | You fall onto the ceiling; the exit is on the floor | `gravity.direction: UP → DOWN` | `NONE`: you float and drift forever |
-| 2 | *BUG-002: Jump button does nothing* | Can't climb a 2-tile ledge | `player.jumpPower: 0 → 1.0` | `3.0`: you rocket into ceiling spikes |
-| 3 | *BUG-003: Glass bridge has no collision* | You fall through a bridge into a pit | `tile.glass.solid: false → true` | `tile.glass.visible: false`: the bridge becomes invisible but solid |
-| 4 | *BUG-004: Player too big for the door* | Can't fit through a 1-tile gap | `player.scale: 2 → 1` | `0.25`: so tiny your jump can't clear a step |
-| 5 | *BUG-005: Two regressions* | Gravity pulls **sideways** *and* the exit is locked | `gravity.direction: LEFT → DOWN` **and** `exit.requires: KEY → NONE` | Order and value choices matter |
+| 1 | *BUG-001: Player falls up* | You fall onto the ceiling; the exit is on the floor | `gravity.direction: UP → DOWN` | `NONE`: you float and can't jump the block |
+| 2 | *BUG-002: Jump button does nothing* | Can't climb a 2-tile ledge | `player.jumpPower: 0 → 1` | `3`: you rocket into the ceiling spikes |
+| 3 | *BUG-003: Glass bridge has no collision* | You fall through a bridge onto spikes | `tile.glass.solid: false → true` | `tile.glass.visible: false`: the bridge disappears and still isn't solid. `hazard.spikes.lethal: false`: you survive the pit and hop out (known issues ⚠) |
+| 4 | *BUG-004: Player too big for the tunnel* | Can't fit through a 1-tile tunnel | `player.scale: 2 → 1` | `0.5`: tiny, but it fits (known issues ⚠) |
+| 5 | *BUG-005: Two regressions* | Gravity pulls **sideways** *and* the exit is locked with no key in the level | `gravity.direction: LEFT → DOWN` **and** `exit.requires: KEY → NONE` | Fixing only one isn't enough; `RIGHT` pins you against a step instead |
 
-(Exact tile layouts are decided during implementation and are part of each
-level's data file, not code.)
+(Exact tile layouts live in each level's data file, not in code. The wrong-patch
+consequences above are checked by `tests/levels/wrongPatches.test.ts`.)
 
 ## Core concept: how the rule engine works
 

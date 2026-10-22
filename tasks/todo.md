@@ -88,10 +88,10 @@ Every task also meets `.claude/references/definition-of-done.md`.
 ### ✅ Checkpoint C: the full loop works in a real browser → **review with user**
 
 ## Phase 4: Content and mobile
-- [ ] **T11 Touch controls + layout**: left/right/jump buttons ≥ 48px; 360×640 with no horizontal scroll. (M; deps T10)
-- [ ] **T12 Levels 2–3**: `player.jumpPower`, `tile.glass.solid/visible`, with replay tests. (M; deps T5)
-- [ ] **T13 Levels 4–5**: `player.scale`; sideways gravity + `exit.requires`, with replay tests. (M; deps T5)
-- [ ] **T14 Level select + end screens**: Verified ✓ / Known issues ⚠, next level. (S; deps T12, T13)
+- [x] **T11 Touch controls + layout**: left/right/jump buttons ≥ 48px; 360×640 with no horizontal scroll. (M; deps T10)
+- [x] **T12 Levels 2–3**: `player.jumpPower`, `tile.glass.solid/visible`, with replay tests. (M; deps T5)
+- [x] **T13 Levels 4–5**: `player.scale`; sideways gravity + `exit.requires`, with replay tests. (M; deps T5)
+- [x] **T14 Level select + end screens**: Verified ✓ / Known issues ⚠, next level. (S; deps T12, T13)
 
 ### ✅ Checkpoint D: 5 levels pass replay tests and are playable at phone size
 

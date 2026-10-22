@@ -1,8 +1,12 @@
+import type { Outcome } from '../core/sim/step';
 import { Renderer } from '../render/canvas';
 import { version } from '../ui/controller';
 import { mountInspector } from '../ui/inspector';
+import { renderLevelSelect } from '../ui/levelSelect';
 import { mountPatchLog } from '../ui/patchLog';
 import { mountReportForm } from '../ui/report';
+import { mountResult } from '../ui/result';
+import { mountTouchControls } from '../ui/touch';
 import { Game } from './game';
 import { Input } from './input';
 import { LEVELS } from './levels';
@@ -20,58 +24,91 @@ const OUTCOME_TEXT = {
   'known-issues': 'Level complete: Shipped with known issues ⚠',
 } as const;
 
-function mount(root: HTMLElement): void {
-  const level = LEVELS[0];
-  if (!level) throw new Error('No levels found.');
-  const game = new Game(level);
-
-  root.innerHTML = `
-    <div class="layout">
-      <section class="play">
-        <header class="ticket">
-          <p class="ticket-id"></p>
-          <h1></h1>
-          <p class="ticket-report"></p>
-        </header>
+const LAYOUT = `
+  <nav class="tickets"></nav>
+  <div class="layout">
+    <header class="ticket">
+      <p class="ticket-id"></p>
+      <h1></h1>
+      <p class="ticket-report"></p>
+    </header>
+    <div class="stage-wrap">
+      <div class="stage">
         <canvas class="screen" aria-label="Game screen"></canvas>
-        <p class="status" role="status"></p>
-      </section>
-      <aside class="panel">
-        <section class="inspector"></section>
-        <form class="report"></form>
-        <section class="patches"></section>
-      </aside>
+        <div class="result-slot" role="dialog" aria-label="Level result"></div>
+      </div>
+      <div class="touch"></div>
+      <p class="status" role="status"></p>
     </div>
-  `;
-  const q = <T extends Element>(selector: string) => root.querySelector(selector) as T;
-  q<HTMLElement>('.ticket-id').textContent = level.ticket;
-  q<HTMLElement>('h1').textContent = level.title;
-  q<HTMLElement>('.ticket-report').textContent = level.report;
-  const status = q<HTMLElement>('.status');
-  const canvas = q<HTMLCanvasElement>('canvas');
+    <aside class="panel">
+      <section class="inspector"></section>
+      <form class="report"></form>
+      <section class="patches"></section>
+    </aside>
+  </div>
+`;
 
-  mountInspector(q('.inspector'), game);
-  mountReportForm(q('.report'), game);
-  mountPatchLog(q('.patches'), game);
+/** Keeps each level's best result for this session ("verified" beats "known issues"). */
+function record(progress: Map<string, Outcome>, levelId: string, outcome: Outcome): void {
+  if (outcome === 'playing' || progress.get(levelId) === 'verified') return;
+  progress.set(levelId, outcome);
+}
 
-  let lastRules = game.rules;
-  let lastPatchCount = 0;
-  game.onChange(() => {
-    if (game.rules !== lastRules) glitch(canvas);
-    status.textContent = describe(game, lastPatchCount);
-    lastRules = game.rules;
-    lastPatchCount = game.history.patches.length;
-  });
-
-  const renderer = new Renderer(canvas, level);
+function start(root: HTMLElement): void {
   const input = new Input(window);
-  window.addEventListener('resize', () => renderer.resize());
-  window.patchNotes = { game };
+  const progress = new Map<string, Outcome>();
+  let renderer: Renderer | null = null;
+  let stopLoop = () => {};
+  window.addEventListener('resize', () => renderer?.resize());
 
-  startLoop(
-    () => game.tick(input.controls),
-    () => renderer.draw(game.state, game.rules),
-  );
+  const play = (index: number) => {
+    const level = LEVELS[index];
+    if (!level) throw new Error(`No level #${index}.`);
+    stopLoop();
+    const game = new Game(level);
+    window.patchNotes = { game };
+
+    root.innerHTML = LAYOUT;
+    const q = <T extends Element>(selector: string) => root.querySelector(selector) as T;
+    q<HTMLElement>('.ticket-id').textContent = level.ticket;
+    q<HTMLElement>('h1').textContent = level.title;
+    q<HTMLElement>('.ticket-report').textContent = level.report;
+    const status = q<HTMLElement>('.status');
+    const canvas = q<HTMLCanvasElement>('canvas');
+    const nav = q<HTMLElement>('.tickets');
+
+    const drawNav = () => renderLevelSelect(nav, LEVELS, index, progress, play);
+    drawNav();
+    mountInspector(q('.inspector'), game);
+    mountReportForm(q('.report'), game);
+    mountPatchLog(q('.patches'), game);
+    mountTouchControls(q('.touch'), input);
+    mountResult(q('.result-slot'), game, {
+      next: index + 1 < LEVELS.length ? () => play(index + 1) : null,
+      retry: () => game.restart(),
+    });
+
+    let lastRules = game.rules;
+    let lastPatchCount = 0;
+    game.onChange(() => {
+      if (game.rules !== lastRules) glitch(canvas);
+      status.textContent = describe(game, lastPatchCount);
+      status.dataset['outcome'] = game.state.outcome;
+      lastRules = game.rules;
+      lastPatchCount = game.history.patches.length;
+      record(progress, level.id, game.state.outcome);
+      drawNav();
+    });
+
+    renderer = new Renderer(canvas, level);
+    const draw = renderer;
+    stopLoop = startLoop(
+      () => game.tick(input.controls),
+      () => draw.draw(game.state, game.rules),
+    );
+  };
+
+  play(0);
 }
 
 /** One line for the status bar, also read out by screen readers. */
@@ -96,4 +133,4 @@ function glitch(canvas: HTMLCanvasElement): void {
 }
 
 const root = document.getElementById('app');
-if (root) mount(root);
+if (root) start(root);
