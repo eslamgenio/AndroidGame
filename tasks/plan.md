@@ -84,8 +84,8 @@ T1 scaffold
 ### Checkpoint D: all 5 levels pass replay tests, playable on a phone-sized viewport
 
 ### Phase 5: Ship-ready
-- [ ] T15 PWA manifest, icons, service worker; bundle-size check
-- [ ] T16 Verify all 9 success criteria; README and architecture ADR
+- [x] T15 PWA manifest, icons, service worker; bundle-size check
+- [x] T16 Verify all 9 success criteria; README and architecture ADR
 
 ### Checkpoint E: Milestone 1 done → **review with you**
 
@@ -103,3 +103,17 @@ T1 scaffold
 ## Open Questions
 
 None. Every decision is recorded in `SPEC.md`.
+
+## Milestone 1 verification (2026-10-22)
+
+| # | Success criterion (SPEC.md) | Result | Evidence |
+|---|---|---|---|
+| 1 | 5 levels playable in Chrome, desktop and Android, keyboard and touch | ✅ desktop · ⚠️ Android emulated only | `e2e/progress.spec.ts` loads every level; `e2e/mobile.spec.ts` drives the touch buttons on an emulated Pixel 7. **Not yet tried on a physical Android phone.** |
+| 2 | Replay tests fail with the bug, pass with the fix | ✅ | `tests/levels/levels.test.ts`: 5 levels × 3 checks |
+| 3 | A report takes effect within one simulation step, no reload, no lost position | ✅ | `tests/unit/app/game.test.ts` (exactly one tick); `e2e/report.spec.ts` (same x position, 0 deaths) |
+| 4 | Wrong patches apply and can be reverted | ✅ | `tests/levels/wrongPatches.test.ts` (9 cases); `e2e/report.spec.ts` |
+| 5 | `src/core` ≥ 90% line coverage, no DOM imports | ✅ 96% lines | `npm run test:coverage`; ESLint boundary rule guarded by `tests/unit/boundary.test.ts` |
+| 6 | E2E smoke tests pass in headless Chromium | ✅ 24 passed (6 skipped on purpose: phone-only or desktop-only) | `npm run test:e2e` |
+| 7 | 360×640: no horizontal scroll, touch targets ≥ 48 px | ✅ | `e2e/mobile.spec.ts` |
+| 8 | Bundle < 100 KB gzipped | ✅ 12.0 KB | `scripts/check-size.mjs`, enforced by `npm run check` |
+| 9 | Installable from Chrome on Android | ✅ criteria met · ⚠️ not installed on a device | `e2e/pwa.spec.ts` checks the manifest and icons, and plays offline. Installing needs HTTPS hosting, which is deferred. |

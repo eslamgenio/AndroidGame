@@ -96,7 +96,7 @@ Every task also meets `.claude/references/definition-of-done.md`.
 ### ✅ Checkpoint D: 5 levels pass replay tests and are playable at phone size
 
 ## Phase 5: Ship-ready
-- [ ] **T15 PWA**: manifest, icons, service worker; bundle under 100 KB gzipped. (S)
-- [ ] **T16 Final verification**: check all 9 spec success criteria; README; ADR for the rule engine. (S)
+- [x] **T15 PWA**: manifest, icons, service worker; bundle under 100 KB gzipped. (S)
+- [x] **T16 Final verification**: check all 9 spec success criteria; README; ADR for the rule engine. (S)
 
 ### ✅ Checkpoint E: Milestone 1 done → **review with user**
